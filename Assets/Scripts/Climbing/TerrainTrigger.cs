@@ -8,7 +8,6 @@ public class TerrainTrigger : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Axe"))
-        //XRClimber.isTriggered = true;
         {
             if (!XRClimber.isTriggered)
                 XRClimber.isTriggered = true;
@@ -18,14 +17,12 @@ public class TerrainTrigger : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        //XRClimber.isTriggered = false;
         if (other.CompareTag("Axe"))
         {
             axes.Remove(other.gameObject.transform);
             if (axes.Count == 0)
             {
                 XRClimber.isTriggered = false;
-                Debug.Log("Empty");
             }
         }
     }

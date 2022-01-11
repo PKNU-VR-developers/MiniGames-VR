@@ -7,12 +7,9 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class XRClimber : MonoBehaviour
 {
     private CharacterController character;
-    //public static XRController rightClimbingHand;
-    //public static XRController leftClimbingHand;
-    //public static List<XRController> climbingHand;
-    public static XRController climbingHand;
+    public static XRController rightClimbingHand;
+    public static XRController leftClimbingHand;
     public static bool isTriggered;
-    private GameObject axes;
     private ContinuousMovement continuousMovement;
 
     void Start()
@@ -23,16 +20,17 @@ public class XRClimber : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (isTriggered)
+        if ((rightClimbingHand || leftClimbingHand) && isTriggered)
         {
-            if (climbingHand)
+            if (rightClimbingHand && (rightClimbingHand.inputDevice.TryGetFeatureValue(CommonUsages.triggerButton, out bool rightValue) && rightValue))
             {
-                if (climbingHand.inputDevice.TryGetFeatureValue(CommonUsages.triggerButton, out bool value) && value)
-                {
-                    continuousMovement.enabled = false;
-                    Climb();
-                    Debug.Log(climbingHand);
-                }
+                continuousMovement.enabled = false;
+                Climb(rightClimbingHand);
+            }
+            if (leftClimbingHand && (leftClimbingHand.inputDevice.TryGetFeatureValue(CommonUsages.triggerButton, out bool leftValue) && leftValue))
+            {
+                continuousMovement.enabled = false;
+                Climb(leftClimbingHand);
             }
         }
         else
@@ -41,7 +39,7 @@ public class XRClimber : MonoBehaviour
         }
     }
 
-    void Climb()
+    void Climb(XRController climbingHand)
     {
         InputDevices.GetDeviceAtXRNode(climbingHand.controllerNode).TryGetFeatureValue(CommonUsages.deviceVelocity, out Vector3 velocity);
 

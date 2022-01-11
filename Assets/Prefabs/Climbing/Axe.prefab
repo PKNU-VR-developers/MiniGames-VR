@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 7303054022224214150}
   - component: {fileID: 7303054022231627142}
   - component: {fileID: 7303054022222276164}
-  - component: {fileID: 7303054022222276163}
   - component: {fileID: 2965598238371225145}
+  - component: {fileID: 1472611384339013531}
   m_Layer: 7
   m_Name: Axe
   m_TagString: Axe
@@ -121,19 +121,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &7303054022222276163
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7303054022222276166}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.45235816, y: 0.03432678, z: 0.20732301}
-  m_Center: {x: 0, y: -0.0000000093132275, z: -0.00000002980233}
 --- !u!114 &2965598238371225145
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -214,7 +201,7 @@ MonoBehaviour:
       m_Calls: []
   m_AttachTransform: {fileID: 7303054023535506901}
   m_AttachEaseInTime: 0.15
-  m_MovementType: 1
+  m_MovementType: 2
   m_VelocityDamping: 1
   m_VelocityScale: 1
   m_AngularVelocityDamping: 1
@@ -249,6 +236,19 @@ MonoBehaviour:
   m_ForceGravityOnDetach: 0
   m_RetainTransformParent: 1
   m_AttachPointCompatibilityMode: 0
+--- !u!65 &1472611384339013531
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7303054022222276166}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.45235828, y: 0.03432689, z: 0.20732307}
+  m_Center: {x: 2.2204463e-15, y: -0.0000000093132275, z: -0.000000029802337}
 --- !u!1 &7303054023535506902
 GameObject:
   m_ObjectHideFlags: 0

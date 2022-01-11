@@ -23,7 +23,7 @@ public class VRRig : MonoBehaviour
     public VRMap leftHand;
 
     public Transform headConstraint;
-    public Vector3 headBodyOffset;
+    private Vector3 headBodyOffset;
 
     public int turnSmoothness = 5;
 
