@@ -25,11 +25,13 @@ public class XRClimber : MonoBehaviour
             if (rightClimbingHand && (rightClimbingHand.inputDevice.TryGetFeatureValue(CommonUsages.triggerButton, out bool rightValue) && rightValue))
             {
                 continuousMovement.enabled = false;
+                Haptic(rightClimbingHand);
                 Climb(rightClimbingHand);
             }
             if (leftClimbingHand && (leftClimbingHand.inputDevice.TryGetFeatureValue(CommonUsages.triggerButton, out bool leftValue) && leftValue))
             {
                 continuousMovement.enabled = false;
+                Haptic(leftClimbingHand);
                 Climb(leftClimbingHand);
             }
         }
@@ -44,5 +46,10 @@ public class XRClimber : MonoBehaviour
         InputDevices.GetDeviceAtXRNode(climbingHand.controllerNode).TryGetFeatureValue(CommonUsages.deviceVelocity, out Vector3 velocity);
 
         character.Move(transform.rotation * -velocity * Time.fixedDeltaTime);
+    }
+
+    void Haptic(XRController controller)
+    {
+        controller.SendHapticImpulse(0.5f, 0.5f);
     }
 }
