@@ -6,7 +6,6 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class CreateAxe : MonoBehaviour
 {
-    //private GameObject[] axes;
     private ManageAxe manageAxe_1;
     private ManageAxe manageAxe_2;
     private XRController xrController;
@@ -14,16 +13,13 @@ public class CreateAxe : MonoBehaviour
     private bool wasPressed = false;
     private bool isActived = false;
 
-    // Start is called before the first frame update
     void Start()
     {
-        //axes = GameObject.FindGameObjectsWithTag("Axe");
         manageAxe_1 = GameObject.Find("AxeManager_1").GetComponent<ManageAxe>();
         manageAxe_2 = GameObject.Find("AxeManager_2").GetComponent<ManageAxe>();
         xrController = gameObject.GetComponent<XRController>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         xrController.inputDevice.TryGetFeatureValue(CommonUsages.primaryButton, out isPressed);

@@ -13,16 +13,14 @@ public class ClimbInteractable : XRGrabInteractable
 
         if (interactor is XRDirectInteractor)
         {
-            //if(interactor.name.Equals("XR Right Hand"))
-            //{
-            //    XRClimber.rightClimbingHand = interactor.GetComponent<XRController>();
-            //}
-            //else
-            //{
-            //    XRClimber.leftClimbingHand = interactor.GetComponent<XRController>();
-            //}
-            //XRClimber.climbingHand.Add(interactor.GetComponent<XRController>());
-            XRClimber.climbingHand = interactor.GetComponent<XRController>();
+            if (interactor.name.Equals("Right Hand"))
+            {
+                XRClimber.rightClimbingHand = interactor.GetComponent<XRController>();
+            }
+            else
+            {
+                XRClimber.leftClimbingHand = interactor.GetComponent<XRController>();
+            }
         }
             
 
@@ -33,7 +31,10 @@ public class ClimbInteractable : XRGrabInteractable
         XRBaseInteractor interactor = args.interactor;
         base.OnSelectExited(args);
 
-        if (XRClimber.climbingHand && XRClimber.climbingHand.name == interactor.name)
-            XRClimber.climbingHand = null;
+        if (XRClimber.rightClimbingHand && XRClimber.rightClimbingHand.name == interactor.name)
+            XRClimber.rightClimbingHand = null;
+
+        if (XRClimber.leftClimbingHand && XRClimber.leftClimbingHand.name == interactor.name)
+            XRClimber.leftClimbingHand = null;
     }
 }
