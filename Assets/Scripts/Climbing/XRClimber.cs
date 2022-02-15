@@ -25,13 +25,13 @@ public class XRClimber : MonoBehaviour
             if (rightClimbingHand && (rightClimbingHand.inputDevice.TryGetFeatureValue(CommonUsages.triggerButton, out bool rightValue) && rightValue))
             {
                 continuousMovement.enabled = false;
-                Haptic(rightClimbingHand);
+                //Haptic(rightClimbingHand);
                 Climb(rightClimbingHand);
             }
             if (leftClimbingHand && (leftClimbingHand.inputDevice.TryGetFeatureValue(CommonUsages.triggerButton, out bool leftValue) && leftValue))
             {
                 continuousMovement.enabled = false;
-                Haptic(leftClimbingHand);
+                //Haptic(leftClimbingHand);
                 Climb(leftClimbingHand);
             }
         }
