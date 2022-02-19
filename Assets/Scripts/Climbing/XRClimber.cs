@@ -10,12 +10,25 @@ public class XRClimber : MonoBehaviour
     public static XRController rightClimbingHand;
     public static XRController leftClimbingHand;
     public static bool isTriggered;
+    public GameObject Avatar;
     private ContinuousMovement continuousMovement;
 
     void Start()
     {
         character = GetComponent<CharacterController>();
         continuousMovement = GetComponent<ContinuousMovement>();
+    }
+
+    private void Update()
+    {
+        if (rightClimbingHand || leftClimbingHand)
+        {
+            Avatar.SetActive(false);
+        }
+        else
+        {
+            Avatar.SetActive(true);
+        }
     }
 
     void FixedUpdate()
