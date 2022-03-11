@@ -9,7 +9,6 @@ public class VRMap
     public Transform rigTarget;
     public Vector3 trackingPositionOffset;
     public Vector3 trackingRotationOffset;
-    private int cameraSetting = 0;
     [SerializeField] private Transform body;
     public void Map()
     {          
