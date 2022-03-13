@@ -10,6 +10,15 @@ public class ShootingAnimation : MonoBehaviour
     {
        
     }
+
+    private void Update()
+    {
+        if (Input.GetMouseButton(1))
+        {
+            // 마우스 오른쪽 버튼을 누르면
+
+        }
+    }
     public void Shoot()
     {
         Debug.Log("Shoot");
