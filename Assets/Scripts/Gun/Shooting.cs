@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[AddComponentMenu("Nokobot/Modern Guns/Simple Shoot")]
+//add component에 Nokobot/Modern Guns/Simple Shoot에 이 스크립트를 집어넣어줌
+[AddComponentMenu("Nokobot/Modern Guns/Simple Shoot")] 
 public class Shooting : MonoBehaviour
 {
     [Header("Prefab Refrences")]
@@ -36,53 +37,53 @@ public class Shooting : MonoBehaviour
 
     void Update()
     {
-        //If you want a different input, change it here
+        //애니메이터의 Shooting의 변수가 true값이면 
         if (anim.GetBool("Shooting"))
         {
-            //Calls animation on the gun that has the relevant animation events that will fire
+            //Trigger 타입의 Fire변수에 트랜지션을 통과시킨 다음에 자동으로 꺼줌.
             gunAnimator.SetTrigger("Fire");
         }
     }
 
 
-    //This function creates the bullet behavior
+    //총알의 움직임 구현
     void Shoot()
     {
         if (muzzleFlashPrefab)
         {
-            //Create the muzzle flash
+            //총알 섬광 만들기
             GameObject tempFlash;
             tempFlash = Instantiate(muzzleFlashPrefab, barrelLocation.position, barrelLocation.rotation);
 
-            //Destroy the muzzle flash effect
+            //섬광 이펙트 삭제
             Destroy(tempFlash, destroyTimer);
         }
 
-        //cancels if there's no bullet prefeb
+        //총알 프리팹이 없으면 그대로 리턴
         if (!bulletPrefab)
         { return; }
 
-        // Create a bullet and add force on it in direction of the barrel
+        //총알을 생성하고 총구가 보고있는 방향으로 총알에 힘을 가함
         Instantiate(bulletPrefab, barrelLocation.position, barrelLocation.rotation).GetComponent<Rigidbody>().AddForce(barrelLocation.forward * shotPower);
 
     }
 
-    //This function creates a casing at the ejection slot
+    //탄피가 나가는 움직임 구현
     void CasingRelease()
     {
-        //Cancels function if ejection slot hasn't been set or there's no casing
+        //탄피 프리팹이 없으면 그대로 리턴
         if (!casingExitLocation || !casingPrefab)
         { return; }
 
-        //Create the casing
+        //탄피 생성
         GameObject tempCasing;
         tempCasing = Instantiate(casingPrefab, casingExitLocation.position, casingExitLocation.rotation) as GameObject;
-        //Add force on casing to push it out
+        //탄피날아가는 움직임, 랜덤으로 힘을 가함
         tempCasing.GetComponent<Rigidbody>().AddExplosionForce(Random.Range(ejectPower * 0.7f, ejectPower), (casingExitLocation.position - casingExitLocation.right * 0.3f - casingExitLocation.up * 0.6f), 1f);
-        //Add torque to make casing spin in random direction
+        //회전력을 가함. 랜덤한 방향으로 날아가게 함
         tempCasing.GetComponent<Rigidbody>().AddTorque(new Vector3(0, Random.Range(100f, 500f), Random.Range(100f, 1000f)), ForceMode.Impulse);
 
-        //Destroy casing after X seconds
+        //destroyTimer 시간만큼 지난 후 탄피를 제거함
         Destroy(tempCasing, destroyTimer);
     }
 
