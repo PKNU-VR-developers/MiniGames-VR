@@ -14,6 +14,7 @@ public class CollectionStatus : MonoBehaviour
         text = this.transform.Find("CollectCounter").GetComponent<TextMeshProUGUI>();
     }
 
+    // 현재 플레이어가 수집한 아이템의 개수 카운트 및 개수 출력
     public void AddCount()
     {
         collectCount++;

@@ -24,12 +24,10 @@ public class VRFootIK : MonoBehaviour
         bool hasHit = Physics.Raycast(rightFootPos + Vector3.up, Vector3.down, out hit);
         if (hasHit)
         {
-            /*
-             * 애니메이션과 IK 설정간의 가중치.
+            /* 애니메이션과 IK 설정간의 가중치.
              * rightFootPosWeight 0으로 하면 애니메이션이 그대로 나타나고 IK 설정이 안 된 것처럼 보임.
              * 1로 하면 IK를 적용시킨 상태로 애니메이션이 동작하는 것 같음.
-             * IK 적용의 수치를 조절하는 느낌
-             */
+             * IK 적용의 수치를 조절하는 느낌 */
             animator.SetIKPositionWeight(AvatarIKGoal.RightFoot, rightFootPosWeight); 
             animator.SetIKPosition(AvatarIKGoal.RightFoot, hit.point + footOffset); //실제 게임 플레이 상에서 발의 위치를 정확하게 정해줌
 
