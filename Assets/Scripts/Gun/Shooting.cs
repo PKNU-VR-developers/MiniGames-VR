@@ -2,16 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-//add component에 Nokobot/Modern Guns/Simple Shoot에 이 스크립트를 집어넣어줌
-[AddComponentMenu("Nokobot/Modern Guns/Simple Shoot")] 
+
 public class Shooting : MonoBehaviour
 {
     [Header("Prefab Refrences")]
     public GameObject bulletPrefab;
     public GameObject casingPrefab;
     public GameObject muzzleFlashPrefab;
-
-    private Animator anim;
 
     [Header("Location Refrences")]
     [SerializeField] private Animator gunAnimator;
@@ -35,12 +32,7 @@ public class Shooting : MonoBehaviour
 
     void Update()
     {
-        //애니메이터의 Shooting의 변수가 true값이면 
-        if (anim.GetBool("Shooting"))
-        {
-            //Trigger 타입의 Fire변수에 트랜지션을 통과시킨 다음에 자동으로 꺼줌.
-            gunAnimator.SetTrigger("Fire");
-        }
+        
     }
 
 
