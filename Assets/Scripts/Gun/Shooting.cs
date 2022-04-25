@@ -10,7 +10,6 @@ public class Shooting : MonoBehaviour
     public GameObject bulletPrefab;
     public GameObject casingPrefab;
     public GameObject muzzleFlashPrefab;
-    public GameObject male;
 
     private Animator anim;
 
@@ -32,7 +31,6 @@ public class Shooting : MonoBehaviour
 
         if (gunAnimator == null)
             gunAnimator = GetComponentInChildren<Animator>();
-        anim = male.GetComponent<Animator>();
     }
 
     void Update()
