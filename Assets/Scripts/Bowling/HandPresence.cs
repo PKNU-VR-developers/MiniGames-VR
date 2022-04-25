@@ -6,6 +6,9 @@ using UnityEngine.XR;
 public class HandPresence : MonoBehaviour
 {
     public InputDeviceCharacteristics controllerCharacteristics;
+    public static bool canHandModelInstantiate = false;
+    private bool isHandModelActivated = false;
+
     private InputDevice targetDevice;
 
     public GameObject handModelPrefabs;
@@ -13,20 +16,15 @@ public class HandPresence : MonoBehaviour
 
     private Animator handAnimator;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        TryInitialize();
-    }
-
     void TryInitialize()
     {
+        // 입력장치들 중 controllerCharacteristics에 해당되는 입력장치를 찾아 devices 리스트에 추가함.
         List<InputDevice> devices = new List<InputDevice>();
         InputDevices.GetDevicesWithCharacteristics(controllerCharacteristics, devices);
 
         foreach (var item in devices)
         {
-            Debug.Log(item.name + item.characteristics);
+            Debug.Log("item name : " + item.name + ", item characteristics : " + item.characteristics);
         }
         if (devices.Count > 0)
         {
@@ -34,7 +32,15 @@ public class HandPresence : MonoBehaviour
 
             spawnedHandModel = Instantiate(handModelPrefabs, transform);
             handAnimator = spawnedHandModel.GetComponent<Animator>();
+
+            isHandModelActivated = true;
         }
+    }
+
+    public void DestroyHandModel()
+    {
+        Destroy(spawnedHandModel);
+        isHandModelActivated = false;
     }
 
     void UpdateHandAnimation()
@@ -59,27 +65,15 @@ public class HandPresence : MonoBehaviour
 
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (!targetDevice.isValid)
-        {
+        if (canHandModelInstantiate && !isHandModelActivated)
             TryInitialize();
-        }
-        else
-        {
-            UpdateHandAnimation();
-        }
 
-        //if (targetDevice.TryGetFeatureValue(CommonUsages.primaryButton, out bool primaryButtonValue) && primaryButtonValue)
-        //    Debug.Log("Pressing Primary Button");
-
-        //if (targetDevice.TryGetFeatureValue(CommonUsages.trigger, out float triggerValue) && triggerValue > 0.1f)
-        //    Debug.Log("Trigger pressed" + triggerValue);
-
-        //if (targetDevice.TryGetFeatureValue(CommonUsages.primary2DAxis, out Vector2 primary2DAxisValue) && primary2DAxisValue != Vector2.zero)
-        //    Debug.Log("Primary Touchpad" + primary2DAxisValue);
-
+        if (!canHandModelInstantiate && isHandModelActivated)
+            DestroyHandModel();
         
+        if (isHandModelActivated)
+            UpdateHandAnimation();
     }
 }
