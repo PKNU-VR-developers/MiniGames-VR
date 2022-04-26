@@ -8,6 +8,8 @@ TagManager:
   - ArrivalPoint
   - UpPoint
   - Axe
+  - Right Axe
+  - Left Axe
   layers:
   - Default
   - TransparentFX
