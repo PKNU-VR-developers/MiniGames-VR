@@ -8,7 +8,6 @@ namespace Gambo
 {
     /// <summary>
     /// Player manager.
-    /// Handles fire Input and Beams.
     /// </summary>
     public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable 
     {
@@ -126,7 +125,7 @@ namespace Gambo
             // 만약 밖에 있다면 안전한 위치에서 새로 스폰한다.
             if (!Physics.Raycast(transform.position, -Vector3.up, 5f))
             {
-                transform.position = new Vector3(0f, 5f, 0f);
+                transform.position = new Vector3(0f, 3f, 0f);
             }
           
                 GameObject _uiGo = Instantiate(this.playerUiPrefab);
