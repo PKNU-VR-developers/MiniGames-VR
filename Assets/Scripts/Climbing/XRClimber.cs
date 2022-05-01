@@ -15,6 +15,8 @@ public class XRClimber : MonoBehaviour
     public static bool isLeftAxeTriggered;
 
     public ParticleSystem climbingFX;
+    private bool rightAxeFX = false;
+    private bool leftAxeFX = false;
 
     public AudioClip climbingSFX;
     private bool rightAxeSFX = false;
@@ -23,16 +25,11 @@ public class XRClimber : MonoBehaviour
 
     public GameObject Avatar;
     private ContinuousMovement continuousMovement;
-    private XRController rightController;
-    private XRController leftController;
 
     void Start()
     {
         character = GetComponent<CharacterController>();
         continuousMovement = GetComponent<ContinuousMovement>();
-        rightController = transform.Find("Camera Offset").Find("Right Hand").GetComponent<XRController>();
-        leftController = transform.Find("Camera Offset").Find("Left Hand").GetComponent<XRController>();
-
     }
 
     private void Update()
@@ -58,7 +55,6 @@ public class XRClimber : MonoBehaviour
         // Axe가 Terrain(terrainTrigger Script를 컴포넌트로 가지는 GameObject)과 닿았다면 True
         if ((rightClimbingHand || leftClimbingHand) && (isRightAxeTriggered || isLeftAxeTriggered))
         {
-            //rightEffectPos = GameObject.Find("")
             // 오른손으로 Axe를 잡은 상태일 때, 오른손 Controller의 Trigger 버튼을 누르고 있으면 True
             if (rightClimbingHand && (rightClimbingHand.inputDevice.TryGetFeatureValue(CommonUsages.triggerButton, out bool rightValue) && rightValue) && isRightAxeTriggered)
             {
@@ -69,14 +65,21 @@ public class XRClimber : MonoBehaviour
                 //이펙트 및 효과음
                 if (!rightAxeSFX)
                 {
-                    PlaySound();
+                    PlaySoundEffect();
                     rightAxeSFX = true;
+                }
+                if (!rightAxeFX)
+                {
+                    Transform effectPos = GameObject.FindGameObjectWithTag("Right Axe").transform.Find("EffectPosition").transform;
+                    Instantiate(climbingFX, effectPos.position, effectPos.rotation);
+                    rightAxeFX = true;
                 }
             }
 
             else
             {
                 rightAxeSFX = false;
+                rightAxeFX = false;
             }
 
             if (leftClimbingHand && (leftClimbingHand.inputDevice.TryGetFeatureValue(CommonUsages.triggerButton, out bool leftValue) && leftValue) && isLeftAxeTriggered)
@@ -87,14 +90,21 @@ public class XRClimber : MonoBehaviour
 
                 if (!leftAxeSFX)
                 {
-                    PlaySound();
+                    PlaySoundEffect();
                     leftAxeSFX = true;
+                }
+                if (!leftAxeFX)
+                {
+                    Transform effectPos = GameObject.FindGameObjectWithTag("Left Axe").transform.Find("EffectPosition").transform;
+                    Instantiate(climbingFX, effectPos.position, effectPos.rotation);
+                    leftAxeFX = true;
                 }
             }
 
             else
             {
                 leftAxeSFX = false;
+                leftAxeFX = false;
             }
         }
         else
@@ -117,7 +127,7 @@ public class XRClimber : MonoBehaviour
         controller.SendHapticImpulse(0.5f, 0.5f);
     }
 
-    void PlaySound()
+    void PlaySoundEffect()
     {
         AudioSource.PlayClipAtPoint(climbingSFX, transform.position);
     }
