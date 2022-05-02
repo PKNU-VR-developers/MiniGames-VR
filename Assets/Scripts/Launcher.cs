@@ -2,8 +2,8 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 
-namespace Com.MyCompany.MyGame //³×ÀÓ½ºÆäÀÌ½º¸¦ °¡Á®¿È ÀÌ ¾Æ·¡¿¡ ÀÖ´Â °ÍµéÀº ¾Õ¿¡ 
-                               //Com.MyCompany.MyGame°¡ »ý·«µÇ¾î ÀÖÀ½
+namespace Gambo //³×ÀÓ½ºÆäÀÌ½º¸¦ °¡Á®¿È ÀÌ ¾Æ·¡¿¡ ÀÖ´Â °ÍµéÀº ¾Õ¿¡ 
+                               //GamBo°¡ »ý·«µÇ¾î ÀÖÀ½
                                //³×ÀÓ½ºÆäÀÌ½º´Â ÇÏ³ªÀÇ ÇÁ·ÎÁ§Æ®¿¡ ÇÏ³ª¸¸ Á¸ÀçÇÒ ¼ö ÀÖÀ½
 {   /// <summary>
     /// MonoBehaviorPunCallbacks´Â MonoBehaviorÀÇ ¸í·É¾îµéÀ» »ç¿ëÇÏ´Â ´ë½Å¿¡ ¿©·¯ ÇÁ·ÎÆÛÆ¼³ª virtual methods¸¦ Á¦°øÇÑ´Ù.
@@ -40,13 +40,13 @@ namespace Com.MyCompany.MyGame //³×ÀÓ½ºÆäÀÌ½º¸¦ °¡Á®¿È ÀÌ ¾Æ·¡¿¡ ÀÖ´Â °ÍµéÀº ¾Õ¿
 
         #region Public Fields
 
-        [Tooltip("The Ui Panel to let the user enter name, connect and play")]
-        [SerializeField]
-        private GameObject controlPanel;
         [Tooltip("The UI Label to inform the user that the connection is in progress")]
         [SerializeField]
         private GameObject progressLabel;
 
+        [Tooltip("The Login set")]
+        [SerializeField]
+        private GameObject LoginSet;
         #endregion
 
         #region MonoBehaviour CallBacks
@@ -56,7 +56,6 @@ namespace Com.MyCompany.MyGame //³×ÀÓ½ºÆäÀÌ½º¸¦ °¡Á®¿È ÀÌ ¾Æ·¡¿¡ ÀÖ´Â °ÍµéÀº ¾Õ¿
         void Start()
         {
             progressLabel.SetActive(false);
-            controlPanel.SetActive(true);
         }
 
         /// <summary>
@@ -98,7 +97,7 @@ namespace Com.MyCompany.MyGame //³×ÀÓ½ºÆäÀÌ½º¸¦ °¡Á®¿È ÀÌ ¾Æ·¡¿¡ ÀÖ´Â °ÍµéÀº ¾Õ¿
             if (this != null)
             {
                 progressLabel.SetActive(false);
-                controlPanel.SetActive(true);
+                LoginSet.SetActive(true);
                 Debug.LogWarningFormat("PUN Basics Tutorial/Launcher: OnDisconnected() was called by PUN with reason {0}", cause);
             }
         }
@@ -119,12 +118,12 @@ namespace Com.MyCompany.MyGame //³×ÀÓ½ºÆäÀÌ½º¸¦ °¡Á®¿È ÀÌ ¾Æ·¡¿¡ ÀÖ´Â °ÍµéÀº ¾Õ¿
             //GetScene() == shooting -> ¾ÀÀ» °¡Á®¿À°í ±× ¾ÀÀÌ ½´ÆÃÀÌ¸é
             if (PhotonNetwork.CurrentRoom.PlayerCount == 1)
             {
-                Debug.Log("We load the VR Shooting");
+                Debug.Log("We load the Lobby");
 
 
                 // #Critical
                 // Load the Room Level.
-                PhotonNetwork.LoadLevel("VR Shooting");
+                PhotonNetwork.LoadLevel("Lobby");
             }
 
         }
@@ -141,8 +140,8 @@ namespace Com.MyCompany.MyGame //³×ÀÓ½ºÆäÀÌ½º¸¦ °¡Á®¿È ÀÌ ¾Æ·¡¿¡ ÀÖ´Â °ÍµéÀº ¾Õ¿
         public void Connect()
         {
             isConnecting = true;
+            LoginSet.SetActive(false);
             progressLabel.SetActive(true);
-            controlPanel.SetActive(false);
             // ¸¸¾à ¾ÆÁ÷ ¿¬°áµÇ¾ú´Ù¸é JoinÇÏ°í ±×·¸Áö ¾Ê´Ù¸é ¼­¹ö¿¡ ¿¬°áÇÏ´Â °ÍÀ» ½ÃÀÛÇÑ´Ù.
             if (PhotonNetwork.IsConnected)
             {
